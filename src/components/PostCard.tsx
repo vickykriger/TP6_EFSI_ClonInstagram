@@ -1,52 +1,27 @@
+import React, { useState } from 'react';
 import CommentSection from './CommentSection';
+import type { Publicacion } from '../interfaz'; 
 
-function PostCard (){
-  {
-    return (
-      <article className="post-card">
-        <header className="post-header">
-          <div className="post-author-info">
-            <img src="" alt="Avatar" />
-            <span className="author-username">username</span>
-            <span className="post-time">• 2h</span>
-          </div>
-          <button className="post-options">...</button>
-        </header>
-
-        <div className="post-content">
-          <img src="" alt="Contenido del post" />
-        </div>
-
-        <div className="post-footer">
-          <div className="post-actions">
-            <div className="action-buttons-left">
-              <button>Like</button>
-              <button>Comment</button>
-              <button>Share</button>
-            </div>
-            <div className="action-buttons-right">
-              <button>Save</button>
-            </div>
-          </div>
-          
-          <div className="post-likes">
-            <span>1,000 likes</span>
-          </div>
-          
-          <div className="post-caption">
-            <span className="author-username">username</span>
-            <span className="caption-text">Texto de la descripción...</span>
-          </div>
-
-          <CommentSection />
-
-          <div className="post-add-comment">
-            <input type="text" placeholder="Add a comment..." />
-            <button>Post</button>
-          </div>
-        </div>
-      </article>
-    );
-  }
+interface PostCardProps {
+    publicacion: Publicacion;
 }
+
+function PostCard({ publicacion }: PostCardProps) {
+    return (
+        <>
+            <div className="header-post">
+                <h3>{publicacion.nombreUsuario}</h3>
+                <img src={publicacion.imagen} alt="Publicación" className="post-image" />
+                <div className="post-info">
+                    <p>{publicacion.nombreUsuario}</p>
+                    <p>{publicacion.descrpcion}</p>
+                    <p>{publicacion.likes} Me gusta</p>
+                    <p>{publicacion.fecha}</p>
+                </div>
+            </div>
+            <CommentSection listaComentarios={publicacion.comentarios} />
+        </>
+    );
+}
+
 export default PostCard;
