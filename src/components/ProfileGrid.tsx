@@ -1,23 +1,24 @@
+import React from 'react';
+import type { Publicacion } from '../interfaz';
 import GridItem from './GridItem';
 
-function ProfileGrid (){
-{
-    return (
-      <div className="profile-grid-container">
-        <div className="profile-tabs">
-          <button className="tab active">POSTS</button>
-          <button className="tab">REELS</button>
-          <button className="tab">SAVED</button>
-          <button className="tab">TAGGED</button>
-        </div>
-        <div className="photos-grid">
-          <GridItem />
-          <GridItem />
-          <GridItem />
-          <GridItem />
-        </div>
-      </div>
-    );
-  }
+interface ProfileGridProps {
+    publicaciones: Publicacion[];
 }
-export default ProfileGrid;
+
+export default function ProfileGrid({ publicaciones }: ProfileGridProps) {
+    if (!publicaciones || publicaciones.length === 0) {
+        return (
+            <div className='no-post'>
+                No posts yet.
+            </div>
+        );
+    }
+    return (
+        <div className='profile-grid'>
+            {publicaciones.map((post, index) => (
+                <GridItem key={index} publicacion={post} />
+            ))}
+        </div>
+    );
+}

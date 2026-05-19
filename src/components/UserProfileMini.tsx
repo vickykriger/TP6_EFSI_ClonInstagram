@@ -1,15 +1,27 @@
-function UserProfileMini (){
-    {
-    return (
-      <div className="user-profile-mini">
-        <img src="" alt="Tu avatar" />
-        <div className="user-mini-info">
-          <span className="username">tu_usuario</span>
-          <span className="fullname">Tu Nombre Completo</span>
-        </div>
-        <button className="switch-account-btn">Switch</button>
-      </div>
-    );
-  }
+import React from 'react';
+import type { User } from '../interfaz';
+
+interface UserProfileMiniProps {
+    usuario: User;
 }
-export default UserProfileMini;
+
+export default function UserProfileMini({ usuario }: UserProfileMiniProps) {
+    return (
+        <div >
+            <div >
+                <img 
+                    src={usuario.imagen || 'https://via.placeholder.com/44'} 
+                    alt={`Perfil de ${usuario.nombre}`}
+                />
+                <div >
+                    <span >
+                        {usuario.nombre}_
+                    </span>
+                </div>
+            </div>
+            <button >
+                Switch
+            </button>
+        </div>
+    );
+}

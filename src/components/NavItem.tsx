@@ -1,13 +1,24 @@
-function NavItem(){
-    {
-        return (
-            <li className="nav-item">
-                <div className="nav-icon">
-                    {/* SVG del icono aquí */}
-                </div>
-                <span className="nav-label">Título del Link</span>
-            </li>
-        );
-    }
+import React from 'react';
+
+interface NavItemProps {
+    icon: React.ReactNode;
+    label: string;
 }
-export default NavItem;
+
+export default function NavItem({ icon, label }: NavItemProps) {
+    return (
+        <div 
+            className="nav-item" 
+            
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f2f2f2'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+        >
+            <div>
+                {icon}
+            </div>
+            <span>
+                {label}
+            </span>
+        </div>
+    );
+}

@@ -1,16 +1,33 @@
-function GridItem (){
-    {
-    return (
-      <div className="grid-item">
-        <img src="" alt="Thumbnail" />
-        <div className="grid-item-overlay">
-          <div className="overlay-stats">
-            <span>❤️ 150</span>
-            <span>💬 20</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
+import React, { useState } from 'react';
+import type { Publicacion } from '../interfaz';
+
+interface GridItemProps {
+    publicacion: Publicacion;
 }
-export default GridItem;
+
+export default function GridItem({ publicacion }: GridItemProps) {
+    const [hovered, setHovered] = useState(false);
+
+    return (
+        <div 
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
+            <img 
+                src={publicacion.imagen} 
+                alt="Post de perfil" 
+            />
+
+            {hovered && (
+                <div >
+                    <div >
+                        ❤️ <span>{publicacion.likes}</span>
+                    </div>
+                    <div >
+                        💬 <span>{publicacion.comentarios ? publicacion.comentarios.length : 0}</span>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}

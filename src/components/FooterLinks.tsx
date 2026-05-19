@@ -1,19 +1,21 @@
-function FooterLinks (){
-{
+import React from 'react';
+
+export default function FooterLinks() {
+    const links = ['About', 'Help', 'Press', 'API', 'Jobs', 'Privacy', 'Terms', 'Locations', 'Language', 'Meta Verified'];
+    const anioActual = new Date().getFullYear();
+
     return (
-      <footer className="footer-links-container">
-        <ul className="links-list">
-          <li>About</li>
-          <li>Help</li>
-          <li>Press</li>
-          <li>API</li>
-          <li>Jobs</li>
-          <li>Privacy</li>
-          <li>Terms</li>
-        </ul>
-        <span className="copyright">© 2026 INSTAGRAM FROM META</span>
-      </footer>
+        <div className='footer'>
+            <div >
+                {links.map((link, index) => (
+                    <span key={index} style={{ cursor: 'pointer' }}>
+                        {link} {index < links.length - 1 && '·'}
+                    </span>
+                ))}
+            </div>
+            <p >
+                © {anioActual} INSTAGRAM FROM META
+            </p>
+        </div>
     );
-  }
 }
-export default FooterLinks;

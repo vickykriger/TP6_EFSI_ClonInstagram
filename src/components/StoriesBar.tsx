@@ -1,13 +1,23 @@
-import StoryCircle from './StoryCircle';
+import React from 'react';
+import type { User } from '../interfaz';
 
-function StoriesBar(){{
-    return (
-      <div className="stories-container">
-        <StoryCircle />
-        <StoryCircle />
-        <StoryCircle />
-      </div>
-    );
-  }
+interface StoriesBarProps {
+    usuarios: User[];
+    onSelectUser: (user: User) => void;
 }
-export default StoriesBar;
+export default function StoriesBar({ usuarios, onSelectUser }: StoriesBarProps) {
+    return (
+        <div className="stories-bar-container">
+            {usuarios.map((user, index) => (
+                <div 
+                    key={index} 
+                    className="story-circle-item" 
+                    onClick={() => onSelectUser(user)} 
+                >
+                    <img src={user.imagen} alt={user.nombre} />
+                    <p>{user.nombre}</p>
+                </div>
+            ))}
+        </div>
+    );
+}

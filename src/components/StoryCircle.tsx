@@ -1,13 +1,19 @@
-function StoryCircle() {
-    {
-        return (
-            <div className="story-circle">
-                <div className="story-border">
-                    <img src="" alt="Avatar" className="story-avatar" />
-                </div>
-                <span className="story-username">username</span>
-            </div>
-        );
-    }
+import React from 'react';
+import '../index.css';
+
+interface StoryCircleProps {
+    imagen: string;
+    nombreUsuario: string;
 }
-export default StoryCircle;
+
+export default function StoryCircle({ imagen, nombreUsuario }: StoryCircleProps) {
+    return (
+        <div className="story-circle-wrapper">
+                <img 
+                    src={imagen || 'https://via.placeholder.com/60'} 
+                    alt={`Story de ${nombreUsuario}`} 
+                />
+            <span>{nombreUsuario}</span>
+        </div>
+    );
+}
