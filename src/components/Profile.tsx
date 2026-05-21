@@ -7,8 +7,6 @@ import '../index.css';
 interface ProfileProps {
     usuario: User;
 }
-console.log("kasks");
-console.log('Profile renderizado con usuario:');
 export default function Profile({ usuario }: ProfileProps) {
     return (
         <div className="profile-page-container">

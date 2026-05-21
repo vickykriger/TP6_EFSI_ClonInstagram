@@ -30,7 +30,7 @@ export default function SideBar({ onGoHome, onGoToProfile }: SideBarProps) {
                 <NavItem label="Create" icon={<svg>...</svg>} />
                 <NavItem 
                     label="Profile" 
-                    icon={<div >P</div>} 
+                    icon={<div ></div>} 
                     onClick={onGoToProfile}
                 />
             </div>

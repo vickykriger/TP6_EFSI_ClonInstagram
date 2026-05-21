@@ -1,3 +1,813 @@
-img{
-    width:2%;
+/* ===========================
+   RESET & BASE
+=========================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #fafafa;
+  color: #262626;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* ===========================
+   LAYOUT PRINCIPAL
+=========================== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.app-layout > main {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin-left: 245px; /* ancho del sidebar */
+  min-height: 100vh;
+  justify-content: center;
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 245px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #dbdbdb;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px 20px 12px;
+  z-index: 100;
+}
+
+/* Logo de Instagram en el sidebar */
+.sidebar-container > div:first-child {
+  padding: 25px 12px 16px 12px;
+  margin-bottom: 4px;
+}
+
+/* Contenedor de nav items */
+.sidebar-container > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+/* Botón "More" al fondo */
+.sidebar-container > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+}
+
+/* ===========================
+   NAV ITEMS (Sidebar)
+=========================== */
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #262626;
+  transition: background-color 0.1s ease;
+  width: 100%;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background-color: #f2f2f2;
+}
+
+.nav-item > div:first-child,
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item > span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #262626;
+  white-space: nowrap;
+}
+
+/* ===========================
+   FEED SECTION (columna central)
+=========================== */
+.feed-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 470px;
+  max-width: 470px;
+  padding: 24px 0 40px 0;
+  flex-shrink: 0;
+}
+
+/* ===========================
+   STORIES BAR
+=========================== */
+.stories-bar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 0 20px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.stories-bar-container::-webkit-scrollbar {
+  display: none;
+}
+
+.story-circle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.story-circle-item img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  outline: 2px solid #c13584;
+  padding: 1px;
+}
+
+.story-circle-item p {
+  font-size: 12px;
+  color: #262626;
+  text-align: center;
+  max-width: 66px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===========================
+   POST CARD
+=========================== */
+.post-card-container {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  margin-bottom: 24px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.post-header span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.post-image {
+  width: 100%;
+  cursor: pointer;
+}
+
+.post-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.post-interactions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px 4px 12px;
+}
+
+.post-interactions button {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #262626;
+}
+
+.post-info {
+  padding: 0 16px 4px 16px;
+}
+
+.post-info p {
+  font-size: 14px;
+  color: #262626;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.post-info p:first-child {
+  font-weight: 600;
+}
+
+.post-info strong {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.view-comments-trigger {
+  padding: 0 16px 4px 16px;
+  font-size: 14px;
+  color: #8e8e8e;
+  cursor: pointer;
+}
+
+.view-comments-trigger:hover {
+  color: #262626;
+}
+
+/* ===========================
+   COMMENT SECTION
+=========================== */
+.comments-list {
+  padding: 4px 16px 12px 16px;
+}
+
+.comment-item {
+  margin-bottom: 6px;
+}
+
+.comment-item > div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.comment-item > div > span:first-child {
+  font-weight: 600;
+  color: #262626;
+  flex-shrink: 0;
+}
+
+.comment-item > div > span:last-child {
+  color: #262626;
+  font-weight: 400;
+}
+
+/* ===========================
+   SUGGESTIONS SECTION (columna derecha)
+=========================== */
+.suggestions-section {
+  width: 320px;
+  max-width: 320px;
+  padding: 24px 0 0 30px;
+  flex-shrink: 0;
+}
+
+/* ===========================
+   SUGGESTIONS BAR
+=========================== */
+.suggestions-bar-container {
+  position: sticky;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Usuario actual (arriba de sugerencias) */
+.suggestions-bar-container > div:first-child {
+  margin-bottom: 16px;
+}
+
+.suggestions-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.suggestions-header > span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8e8e8e;
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggestion-item-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.suggestion-user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestion-user-info img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.suggestion-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.suggestion-texts span:first-child {
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.suggestion-texts span:last-child {
+  font-size: 12px;
+  color: #8e8e8e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.follow-btn {
+  background: none;
+  border: none;
+  color: #0095f6;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.follow-btn:hover {
+  color: #00376b;
+}
+
+/* ===========================
+   USER PROFILE MINI (logged-in user)
+=========================== */
+.suggestions-bar-container > div:first-child > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ===========================
+   FOOTER LINKS
+=========================== */
+.footer {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+
+.footer > div > span {
+  font-size: 11px;
+  color: #8e8e8e;
+  cursor: pointer;
+}
+
+.footer > div > span:hover {
+  text-decoration: underline;
+}
+
+.footer > p {
+  font-size: 11px;
+  color: #c7c7c7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===========================
+   PROFILE PAGE
+=========================== */
+.profile-page-container {
+  width: 100%;
+  max-width: 935px;
+  padding: 30px 20px 0 20px;
+}
+
+.profile-screen-container {
+  width: 100%;
+  max-width: 935px;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 80px;
+  padding: 30px 0 44px 0;
+  border: none;
+}
+
+.profile-image {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+}
+
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #dbdbdb;
+}
+
+.profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-info > div:first-child {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-info > div:first-child h2 {
+  font-size: 20px;
+  font-weight: 300;
+  color: #262626;
+  margin: 0;
+}
+
+.profile-info > div:first-child button {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-info > div:first-child button:first-of-type {
+  background-color: #0095f6;
+  color: #ffffff;
+  border: none;
+}
+
+.profile-info > div:first-child button:first-of-type:hover {
+  background-color: #1877f2;
+}
+
+.profile-info > div:first-child button:not(:first-of-type) {
+  background-color: #efefef;
+  color: #262626;
+  border: none;
+}
+
+/* Stats row */
+.profile-info > div:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.profile-info > div:nth-child(2) span {
+  font-size: 16px;
+  color: #262626;
+}
+
+.profile-info > div:nth-child(2) strong {
+  font-weight: 600;
+}
+
+/* Bio section */
+.profile-info > div:nth-child(3) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-info > div:nth-child(3) h1 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.profile-info > div:nth-child(3) p {
+  font-size: 14px;
+  color: #262626;
+}
+
+/* Profile Grid */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  border-top: 1px solid #dbdbdb;
+  padding-top: 0;
+}
+
+.no-post {
+  text-align: center;
+  padding: 40px;
+  color: #8e8e8e;
+  font-size: 14px;
+  border-top: 1px solid #dbdbdb;
+}
+
+/* Grid Item */
+.profile-grid > div,
+.profile-grid .grid-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #efefef;
+}
+
+.profile-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.2s ease;
+}
+
+/* ===========================
+   SINGULAR POST VIEW (detalle del post)
+=========================== */
+.singular-post-view {
+  width: 100%;
+  max-width: 935px;
+  padding: 24px 20px;
+}
+
+.singular-post-view > button {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #efefef;
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+  cursor: pointer;
+}
+
+.singular-post-view > button:hover {
+  background-color: #dbdbdb;
+}
+
+.detailed-post {
+  display: flex;
+  flex-direction: column;
+  max-width: 614px;
+}
+
+.detailed-post h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.detailed-post img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.detailed-post .post-interactions {
+  padding: 8px 0 4px 0;
+}
+
+.detailed-post .likes-count {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.detailed-post .caption {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.extended-comments {
+  border-top: 1px solid #dbdbdb;
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.extended-comments h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #8e8e8e;
+}
+
+.comment-row {
+  font-size: 14px;
+  color: #262626;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.additional-info {
+  margin-top: 16px;
+  border-top: 1px solid #dbdbdb;
+  padding-top: 12px;
+}
+
+.additional-info p {
+  font-size: 12px;
+  color: #8e8e8e;
+  margin-bottom: 4px;
+}
+
+/* ===========================
+   STORY CIRCLE (StoryCircle.tsx)
+=========================== */
+.story-circle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.story-circle-wrapper img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  outline: 2px solid #c13584;
+}
+
+.story-circle-wrapper span {
+  font-size: 12px;
+  color: #262626;
+  text-align: center;
+  max-width: 66px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===========================
+   SUGGESTIONS LIST (SuggestionsList.tsx)
+=========================== */
+.suggestions-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggestions-list-wrapper .suggestions-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestions-list-wrapper .suggestions-header button {
+  font-size: 13px;
+  font-weight: 600;
+  color: #262626;
+  cursor: pointer;
+}
+
+.suggestions-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===========================
+   USER SUGGESTIONS LIST (UserSuggestionsList.tsx)
+=========================== */
+.suggestion-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.suggestion-item img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.suggestion-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestion-info .username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestion-info .reason {
+  font-size: 12px;
+  color: #8e8e8e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
