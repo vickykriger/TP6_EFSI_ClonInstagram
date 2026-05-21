@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Publicacion } from '../interfaz';
 import CommentSection from './CommentSection';
+import type { User } from '../interfaz';
 
 interface PostCardProps {
     publicacion: Publicacion;
@@ -25,7 +26,10 @@ export default function PostCard({ publicacion, onSelect, onSelectUser }: PostCa
                     <strong onClick={onSelectUser}>{publicacion.nombreUsuario}</strong> {publicacion.descrpcion}
                 </p>
             </div>
-
+            <div className="post-interactions">
+                <button>❤️</button>
+                <button>💬</button>
+              </div>
             <div className="view-comments-trigger" onClick={onSelect}>
                 Ver los {publicacion.comentarios?.length || 0} comentarios...
             </div>

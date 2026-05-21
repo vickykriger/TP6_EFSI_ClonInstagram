@@ -6,6 +6,7 @@ import ProfileGrid from './ProfileGrid';
 interface ProfileProps {
     usuario: User;
 }
+console.log("kasks");
 console.log('Profile renderizado con usuario:');
 export default function Profile({ usuario }: ProfileProps) {
     return (

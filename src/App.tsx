@@ -177,64 +177,132 @@ export default function App() {
   }, []);
 
   if (cargando) return <div >Creando perfiles de michis... 🐈</div>;
-
-  const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
+const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
 
   return (
-  <div className="app-layout">
-    <SideBar />
-    <main>
-      {postSeleccionado ? (
-        <div className="singular-post-view">
-          <button onClick={() => setPostSeleccionado(null)}>
-            Volver al Feed
-          </button>
-
-          <div className="detailed-post">
-            <h2>{postSeleccionado.nombreUsuario}</h2>
-            <img src={postSeleccionado.imagen} alt="Post Singular Ampliado" />
-
-            <div className="post-interactions">
-              <button>❤️</button>
-              <button>💬</button>
-              <button>✈️</button>
+    <div className="app-layout">
+      {/* 1. Pasamos las funciones a la barra lateral */}
+      <SideBar 
+        onGoHome={() => {
+          setUsuarioSeleccionado(null);
+          setPostSeleccionado(null);
+        }}
+        onGoToProfile={() => {
+          if (usuarios.length > 0) {
+            setUsuarioSeleccionado(usuarios[0]); // Selecciona a SofiVicky
+            setPostSeleccionado(null);           // Cierra posts abiertos
+          }
+        }}
+      />
+      
+      <main>
+        {/* 2. SI HAY UN USUARIO SELECCIONADO, MUESTRA LA PANTALLA DE PERFIL */}
+        {usuarioSeleccionado ? (
+          <div className="profile-screen-container" style={{ padding: '20px' }}>
+            <button 
+              onClick={() => setUsuarioSeleccionado(null)}
+              style={{ marginBottom: '20px', padding: '8px 16px', cursor: 'pointer' }}
+            >
+              ← Volver al Feed
+            </button>
+            
+            {/* Cabecera del Perfil con info dinámica */}
+            <div className="profile-header" style={{ display: 'flex', gap: '30px', marginBottom: '30px', alignItems: 'center' }}>
+              <img 
+                src={usuarioSeleccionado.imagen} 
+                alt={usuarioSeleccionado.nombre} 
+                style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover' }}
+              />
+              <div>
+                <h2 style={{ fontSize: '24px', margin: '0 0 10px 0' }}>{usuarioSeleccionado.nombre}</h2>
+                <div style={{ display: 'flex', gap: '20px', marginBottom: '15px' }}>
+                  <span><strong>{usuarioSeleccionado.cantPublicaciones}</strong> posts</span>
+                  <span><strong>{usuarioSeleccionado.cantSeguidores}</strong> followers</span>
+                  <span><strong>{usuarioSeleccionado.cantSeguidos}</strong> following</span>
+                </div>
+                <p style={{ margin: 0, fontWeight: 'bold' }}>{usuarioSeleccionado.nombre}</p>
+                <p style={{ margin: '5px 0 0 0', color: '#666' }}>{usuarioSeleccionado.biografia}</p>
+              </div>
             </div>
 
-            <p className="likes-count">{postSeleccionado.likes} likes</p>
-            <p className="caption"><strong>{postSeleccionado.nombreUsuario}</strong> {postSeleccionado.descrpcion}</p>
-
-            <div className="extended-comments">
-              <h3>Comentarios:</h3>
-              {postSeleccionado.comentarios?.map((item, index) => (
-                <div key={index} className="comment-row">
-                  <strong>{item.nombreUsuario}:</strong> {item.comentario}
+            {/* Grilla de publicaciones del Perfil */}
+            <div className="profile-posts-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', borderTop: '1px solid #dbdbdb', paddingTop: '20px' }}>
+              {usuarioSeleccionado.publicaciones.map((post, idx) => (
+                <div 
+                  key={idx} 
+                  onClick={() => {
+                    setPostSeleccionado(post);
+                    setUsuarioSeleccionado(null); // Al abrir la foto vamos al detalle
+                  }}
+                  style={{ cursor: 'pointer', aspectRatio: '1/1', overflow: 'hidden', backgroundColor: '#f0f0f0' }}
+                >
+                  <img src={post.imagen} alt="Post de perfil" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               ))}
             </div>
+          </div>
+        ) : postSeleccionado ? (
+          /* 3. VISTA DE DETALLE DE UN POST SINGULAR */
+          <div className="singular-post-view">
+            <button onClick={() => setPostSeleccionado(null)}>
+              Volver al Feed
+            </button>
 
-            <div className="additional-info">
-              <p>Fecha de publicación: 19 de Mayo de 2026</p>
-              <p>Ubicación: Buenos Aires, Argentina</p>
+            <div className="detailed-post">
+              <h2>{postSeleccionado.nombreUsuario}</h2>
+              <img src={postSeleccionado.imagen} alt="Post Singular Ampliado" />
+
+              <div className="post-interactions">
+                <button>❤️</button>
+                <button>💬</button>
+              </div>
+
+              <p className="likes-count">{postSeleccionado.likes} likes</p>
+              <p className="caption"><strong>{postSeleccionado.nombreUsuario}</strong> {postSeleccionado.descrpcion}</p>
+
+              <div className="extended-comments">
+                <h3>Comentarios:</h3>
+                {postSeleccionado.comentarios?.map((item, index) => (
+                  <div key={index} className="comment-row">
+                    <strong>{item.nombreUsuario}:</strong> {item.comentario}
+                  </div>
+                ))}
+              </div>
+
+              <div className="additional-info">
+                <p>Fecha de publicación: 19 de Mayo de 2026</p>
+                <p>Ubicación: Buenos Aires, Argentina</p>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="feed-section">
-          <StoriesBar usuarios={usuarios} />
+        ) : (
+          /* 4. VISTA POR DEFECTO: EL FEED NORMAL */
+          <div className="feed-section">
+            <StoriesBar usuarios={usuarios} onSelectUser={setUsuarioSeleccionado} />
 
-          {todasLasPublicaciones.map((post, index) => (
-            <PostCard
-              key={index}
-              publicacion={post}
-              onSelect={() => setPostSeleccionado(post)}
-            />
-          ))}
-        </div>
-      )}
-        <div className="suggestions-section">
-          <SuggestionsBar listaSugeridos={usuarios} onSelectUser={setUsuarioSeleccionado}/>
-        </div>
-    </main>
-  </div>
+            {todasLasPublicaciones.map((post, index) => (
+              <PostCard
+                key={index}
+                publicacion={post}
+                onSelect={() => setPostSeleccionado(post)}
+                onSelectUser={() => {
+                  const usuarioEncontrado = usuarios.find(u => u.nombre === post.nombreUsuario);
+                  if (usuarioEncontrado) {
+                    setUsuarioSeleccionado(usuarioEncontrado);
+                  }
+                }}
+              />
+            ))}
+          </div>
+        )}
+        
+        {/* Las sugerencias laterales solo se muestran en el Feed principal */}
+        {!postSeleccionado && !usuarioSeleccionado && (
+          <div className="suggestions-section">
+            <SuggestionsBar listaSugeridos={usuarios} onSelectUser={setUsuarioSeleccionado} />
+          </div>
+        )}
+      </main>
+    </div>
   );
 }

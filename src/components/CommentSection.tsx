@@ -20,9 +20,6 @@ function CommentSection({ listaComentarios }: CommentSectionProps) {
                         </span>
                         <span>{item.comentario}</span>
                     </div>
-                    <button >
-                        {item.likeado ? '❤️' : '🤍'}
-                    </button>
                 </div>
             ))}
         </div>
