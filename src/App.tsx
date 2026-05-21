@@ -181,7 +181,6 @@ const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
 
   return (
     <div className="app-layout">
-      {/* 1. Pasamos las funciones a la barra lateral */}
       <SideBar 
         onGoHome={() => {
           setUsuarioSeleccionado(null);
@@ -189,14 +188,13 @@ const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
         }}
         onGoToProfile={() => {
           if (usuarios.length > 0) {
-            setUsuarioSeleccionado(usuarios[0]); // Selecciona a SofiVicky
-            setPostSeleccionado(null);           // Cierra posts abiertos
+            setUsuarioSeleccionado(usuarios[0]); 
+            setPostSeleccionado(null);        
           }
         }}
       />
       
       <main>
-        {/* 2. SI HAY UN USUARIO SELECCIONADO, MUESTRA LA PANTALLA DE PERFIL */}
         {usuarioSeleccionado ? (
           <div className="profile-screen-container" style={{ padding: '20px' }}>
             <button 
@@ -206,7 +204,6 @@ const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
               ← Volver al Feed
             </button>
             
-            {/* Cabecera del Perfil con info dinámica */}
             <div className="profile-header" style={{ display: 'flex', gap: '30px', marginBottom: '30px', alignItems: 'center' }}>
               <img 
                 src={usuarioSeleccionado.imagen} 
@@ -225,14 +222,13 @@ const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
               </div>
             </div>
 
-            {/* Grilla de publicaciones del Perfil */}
             <div className="profile-posts-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', borderTop: '1px solid #dbdbdb', paddingTop: '20px' }}>
               {usuarioSeleccionado.publicaciones.map((post, idx) => (
                 <div 
                   key={idx} 
                   onClick={() => {
                     setPostSeleccionado(post);
-                    setUsuarioSeleccionado(null); // Al abrir la foto vamos al detalle
+                    setUsuarioSeleccionado(null);
                   }}
                   style={{ cursor: 'pointer', aspectRatio: '1/1', overflow: 'hidden', backgroundColor: '#f0f0f0' }}
                 >
@@ -242,7 +238,6 @@ const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
             </div>
           </div>
         ) : postSeleccionado ? (
-          /* 3. VISTA DE DETALLE DE UN POST SINGULAR */
           <div className="singular-post-view">
             <button onClick={() => setPostSeleccionado(null)}>
               Volver al Feed
@@ -276,7 +271,6 @@ const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
             </div>
           </div>
         ) : (
-          /* 4. VISTA POR DEFECTO: EL FEED NORMAL */
           <div className="feed-section">
             <StoriesBar usuarios={usuarios} onSelectUser={setUsuarioSeleccionado} />
 
@@ -296,7 +290,6 @@ const todasLasPublicaciones = usuarios.flatMap(u => u.publicaciones);
           </div>
         )}
         
-        {/* Las sugerencias laterales solo se muestran en el Feed principal */}
         {!postSeleccionado && !usuarioSeleccionado && (
           <div className="suggestions-section">
             <SuggestionsBar listaSugeridos={usuarios} onSelectUser={setUsuarioSeleccionado} />

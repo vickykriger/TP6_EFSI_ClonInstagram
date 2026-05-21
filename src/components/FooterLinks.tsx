@@ -1,4 +1,5 @@
 import React from 'react';
+import '../index.css';
 
 export default function FooterLinks() {
     const links = ['About', 'Help', 'Press', 'API', 'Jobs', 'Privacy', 'Terms', 'Locations', 'Language', 'Meta Verified'];

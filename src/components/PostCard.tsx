@@ -2,6 +2,7 @@ import React from 'react';
 import type { Publicacion } from '../interfaz';
 import CommentSection from './CommentSection';
 import type { User } from '../interfaz';
+import '../index.css';
 
 interface PostCardProps {
     publicacion: Publicacion;

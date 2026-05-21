@@ -1,4 +1,5 @@
 import UserSuggestionsList from './UserSuggestionsList';
+import '../index.css';
 
 function SuggestionsList (){
 {

@@ -2,6 +2,7 @@ import React from 'react';
 import type { User } from '../interfaz';
 import UserProfileMini from './UserProfileMini';
 import FooterLinks from './FooterLinks';
+import '../index.css';
 
 interface SuggestionsBarProps {
     listaSugeridos: User[];

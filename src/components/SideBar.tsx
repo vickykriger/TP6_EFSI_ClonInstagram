@@ -1,5 +1,6 @@
 import React from 'react';
 import NavItem from './NavItem';
+import '../index.css';
 
 interface SideBarProps {
     onGoHome: () => void;

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { User } from '../interfaz';
+import '../index.css';
 
 interface StoriesBarProps {
     usuarios: User[];

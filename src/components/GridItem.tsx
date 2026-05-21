@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { Publicacion } from '../interfaz';
+import '../index.css';
 
 interface GridItemProps {
     publicacion: Publicacion;

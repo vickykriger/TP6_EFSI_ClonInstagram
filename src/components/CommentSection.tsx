@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Comentario } from '../interfaz';
+import '../index.css';
 
 interface CommentSectionProps {
     listaComentarios: Comentario[];

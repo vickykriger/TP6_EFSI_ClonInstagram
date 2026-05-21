@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Publicacion } from '../interfaz';
 import GridItem from './GridItem';
+import '../index.css';
 
 interface ProfileGridProps {
     publicaciones: Publicacion[];
